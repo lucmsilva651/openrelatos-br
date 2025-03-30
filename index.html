@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <title>OpenRelatos | 🇧🇷</title>
+</head>
+<body>
+  <main>
+    <div class="logo">
+      <h1>OpenRelatos</h1>
+      <p>•</p>
+      <img src="https://em-content.zobj.net/source/apple/391/flag-brazil_1f1e7-1f1f7.png" alt="BR">
+    </div>
+    <div class="group">
+      <b>
+        <p>O projeto OpenRelatos serve para você contar relatos de sua vida ou problemas pelos quais você esteja passando de forma pública, neste canal do Telegram.</p>
+        <br>
+        <p>Sinta-se a vontade para desabafar sobre qualquer coisa, seja de forma anônima ou não. Você pode dizer o que quiser, sem medo.</p>
+        <p>Nossa equipe irá avaliar sua mensagem em alguns minutos, iremos enviar ela no canal do Telegram <a href="https://t.me/OpenRelatos">@OpenRelatos</a> se aplicável.</p>
+      </b>
+    </div>
+    <div class="group">
+      <p>Insira aqui as informações necessárias para o envio do relato:</p>
+    </div>
+    <div class="group">
+      <label for="isAnonymousChooser">Seu relato vai ser anônimo?</label>
+      <select required autofocus name="anon" id="isAnonymousChooser">
+        <option selected value="yes">Sim</option>
+        <option selected value="no">Não</option>
+      </select>
+      <br>
+      <label for="telegramUserInput">Seu nome de usuário no Telegram:</label>
+      <input id="telegramUserInput" required>
+      <br>
+      <br>
+      <button id="goToNextPage">Ir para a próxima página</button>
+    </div>
+    <script type="module" src="js/index.js"></script>
+  </main>
+</body>
+</html>

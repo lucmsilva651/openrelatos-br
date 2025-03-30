@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&family=DM+Sans');
+
+* {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  padding: 2em 5em;
+}
+
+input[type="text"] {
+  width: 100%;
+  height: 20em;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .45em;
+}
+
+.logo h1 {
+  font-family: "Boldonse", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5em;
+}
+
+.logo *, .group * {
+  padding: 0;
+  margin: 0;
+}
+
+.logo * {
+  user-select: none;
+}
+
+.logo img {
+  width: 2em;
+  height: 2em;
+}
+
+.group {
+  padding: 1em 0 0 0;
+}
+
+.group span {
+  font-family: monospace;
+  font-size: large;
+}
+
+#sendInput {
+  margin-block-start: 1em;
+}
