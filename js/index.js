@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (isAnonymous == "yes") {
-    alert("Informação importante:\nSeu endereço de IP será incluído no seu relato anônimo somente para fins de segurança.\n\nEsse é um segundo aviso, caso tenha sido avisado anteriormente.")
+    alert("Informação importante:\nSeu endereço de IP será incluído no seu relato anônimo somente para fins de segurança.")
   };
 
   if (telegramUser && !telegramUser.includes("@")) {
