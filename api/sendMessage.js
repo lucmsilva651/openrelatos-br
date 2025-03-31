@@ -10,28 +10,30 @@ const botToken = process.env.botToken;
 const privateUser = process.env.privateUser;
 const groupChat = process.env.groupChat;
 
+let isLifeIssueStr = "";
+let isAnonymousStr = "";
+
 app.post("/api/sendMessage", async (req, res) => {
-  const { userInput, isAnonymous, telegramUser } = req.body;
+  const { userInput, ipAddress, isAnonymous, telegramUser, isLifeIssue } = req.body;
 
   if (!userInput) {
-    return res.status(400).json({ error: "O campo userInput é obrigatório!" });
+    return res.status(400).json({ error: "userInput field is mandatory!" });
   }
 
-  const ip = await (await fetch("https://api.ipify.org?format=json")).json();
   let message = "";
 
   try {
-    if (isAnonymous === "No") {
-      message = `Novo relato não anônimo\n\nUsuário que enviou: ${telegramUser}\n\nRelato:\n\`${userInput}\``;
-    } else {
-      message = `Novo relato anônimo\n\nIP: [${ip.ip}](https://ip.me/ip/${ip.ip})\n\nRelato:\n\`${userInput}\``;
+    isLifeIssueStr = isLifeIssue === "account" ? "relato" : isLifeIssue === "problem" ? "problema pessoal" : "inválido";
+    isAnonymousStr = isAnonymous === "yes" ? "anônimo" + `\n\nIP: [${ipAddress}](https://ip.me/ip/${ipAddress})` : isAnonymous === "no" ? "não anônimo" + `\n\nUsuário que enviou: ${telegramUser}` : "inválido";
+    message = `Novo ${isLifeIssueStr} ${isAnonymousStr}\n\nRelato:\n\`${userInput}\``;
 
+    if (isAnonymous == "yes") {
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: privateUser,
-          text: message + `\n\nUsuário que enviou: ${telegramUser}\n\n*Veja o canal @openrelatos na data desta mensagem, por favor!*`,
+          text: message + "\n\n*Veja o canal @openrelatos na data desta mensagem, por favor!*",
           parse_mode: "Markdown",
           disable_web_page_preview: true
         })
@@ -49,9 +51,9 @@ app.post("/api/sendMessage", async (req, res) => {
       })
     });
 
-    res.json({ success: true, message: "Mensagem enviada com sucesso!" });
+    res.json({ success: true, message: "Message sent with success!" });
   } catch (error) {
-    res.status(500).json({ error: "Erro ao enviar a mensagem!" });
+    res.status(500).json({ error: "Error while sending message!" + error });
   }
 });
 

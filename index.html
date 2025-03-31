@@ -4,9 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/modal.css">
   <title>OpenRelatos | 🇧🇷</title>
 </head>
 <body>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Modal Header</h2>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the Modal Body</p>
+        <p>Some other text...</p>
+      </div>
+      <div class="modal-footer">
+        <h3>Modal Footer</h3>
+      </div>
+    </div>
+  </div>
   <main>
     <div class="logo">
       <h1>OpenRelatos</h1>
@@ -25,19 +41,26 @@
       <p>Insira aqui as informações necessárias para o envio do relato:</p>
     </div>
     <div class="group">
-      <label for="isAnonymousChooser">Seu relato vai ser anônimo?</label>
+      <label for="isLifeIssueChooser">É um relato ou um problema pessoal?</label>
+      <select required autofocus name="anon" id="isLifeIssueChooser">
+        <option selected value="account">Relato</option>
+        <option value="problem">Problema pessoal</option>
+      </select>
+      <br>
+      <label for="isAnonymousChooser">Prefere ser anônimo?</label>
       <select required autofocus name="anon" id="isAnonymousChooser">
-        <option selected value="yes">Sim</option>
+        <option value="yes">Sim</option>
         <option selected value="no">Não</option>
       </select>
       <br>
-      <label for="telegramUserInput">Seu nome de usuário no Telegram:</label>
+      <label for="telegramUserInput">Seu nome de usuário no Telegram: <span id="myBtn">(?)</span></label>
       <input id="telegramUserInput" required>
       <br>
       <br>
       <button id="goToNextPage">Ir para a próxima página</button>
     </div>
     <script type="module" src="js/index.js"></script>
+    <script src="js/modal.js"></script>
   </main>
 </body>
 </html>

@@ -1,9 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Boldonse&family=DM+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&family=Geist');
 
 * {
-  font-family: "DM Sans", sans-serif;
+  transition: 300ms;
+  font-family: "Geist", sans-serif;
   font-optical-sizing: auto;
-  text-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -54,4 +58,10 @@ input[type="text"] {
 
 #sendInput {
   margin-block-start: 1em;
+}
+
+@media (max-width: 1150px) {
+  body {
+    padding: 1em 1.65em;
+  }
 }
