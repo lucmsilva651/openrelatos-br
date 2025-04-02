@@ -6,8 +6,8 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 var telegramUser = urlParams.get('user');
 var isAnonymous = urlParams.get('anon');
-var isLifeIssue = urlParams.get('issue');
-let isLifeIssueStr = "";
+var typeOfIssue = urlParams.get('type');
+let typeOfIssueStr = "";
 let isAnonymousStr = "";
 
 function userAlert(error) {
@@ -18,12 +18,12 @@ function userAlert(error) {
   alert(error);
 }
 
-async function sendInputTG(userInput, ipAddress, isAnonymous, telegramUser, isLifeIssue) {
+async function sendInputTG(userInput, ipAddress, isAnonymous, telegramUser, typeOfIssue) {
   try {
     const response = await fetch("/api/sendMessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userInput, ipAddress, isAnonymous, telegramUser, isLifeIssue }),
+      body: JSON.stringify({ userInput, ipAddress, isAnonymous, telegramUser, typeOfIssue }),
     });
 
     const result = await response.json();
@@ -40,7 +40,7 @@ async function sendInputTG(userInput, ipAddress, isAnonymous, telegramUser, isLi
 
 document.addEventListener("DOMContentLoaded", () => {
   isAnonymous = isAnonymous && !(isAnonymous === "yes" || isAnonymous === "no") ? "no" : isAnonymous;
-  isLifeIssue = isLifeIssue && !(isLifeIssue === "account" || isLifeIssue === "problem") ? "account" : isLifeIssue;
+  typeOfIssue = typeOfIssue && !(typeOfIssue === "account" || typeOfIssue === "problem") ? "account" : typeOfIssue;
 
   if (isAnonymous && isAnonymous == "yes") {
     userAlert("Informação importante:\nSeu endereço de IP será incluído no seu relato anônimo somente para fins de segurança.")
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     telegramUser = `@${telegramUser}`;
   };
 
-  isLifeIssueStr = isLifeIssue === "account" ? "Relato" : isLifeIssue === "problem" ? "Problema pessoal" : "Relato";
+  typeOfIssueStr = typeOfIssue === "account" ? "Relato" : typeOfIssue === "problem" ? "Problema pessoal" : "Relato";
   isAnonymousStr = isAnonymous === "yes" ? "Sim" : isAnonymous === "no" ? "Não" : "Não";
 
   console.log(isAnonymous);
@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (elements.telegramUser) {
     elements.telegramUser.innerText = telegramUser;
   };
-  
-  if (elements.isLifeIssue) {
-    elements.isLifeIssue.innerText = isLifeIssueStr;
+
+  if (elements.typeOfIssue) {
+    elements.typeOfIssue.innerText = typeOfIssueStr;
   }
 
   if (elements.isAnonymous) {
@@ -72,7 +72,7 @@ if (elements.sendInput) {
   elements.sendInput.addEventListener("click", () => {
     if (!elements.userInput.value == "") {
       userAlert(`Você irá enviar o seu relato agora. Clique em OK para continuar.`);
-      sendInputTG(elements.userInput.value, ipAddress, isAnonymous, telegramUser, isLifeIssue)
+      sendInputTG(elements.userInput.value, ipAddress, isAnonymous, telegramUser, typeOfIssue)
     } else {
       userAlert("Por favor coloque algum texto!");
     }
@@ -82,7 +82,7 @@ if (elements.sendInput) {
 if (elements.goToNextPage) {
   elements.goToNextPage.addEventListener("click", () => {
     if (!elements.telegramUserInput.value == "") {
-      window.location.href = `/enviar.html?anon=${elements.isAnonymousChooser.value}&issue=${elements.isLifeIssueChooser.value}&user=${elements.telegramUserInput.value}`
+      window.location.href = `/send?anon=${elements.isAnonymousChooser.value}&type=${elements.typeOfIssueChooser.value}&user=${elements.telegramUserInput.value}`
     } else {
       userAlert("Por favor coloque seu usuário no campo de usuário!");
     }

@@ -6,8 +6,8 @@ export function getElements() {
     telegramUser: document.getElementById("telegramUser"),
     isAnonymous: document.getElementById("isAnonymous"),
     isAnonymousChooser: document.getElementById("isAnonymousChooser"),
-    isLifeIssue: document.getElementById("isLifeIssue"),
-    isLifeIssueChooser: document.getElementById("isLifeIssueChooser"),
+    typeOfIssue: document.getElementById("typeOfIssue"),
+    typeOfIssueChooser: document.getElementById("typeOfIssueChooser"),
     telegramUserInput: document.getElementById("telegramUserInput"),
     goToNextPage: document.getElementById("goToNextPage"),
   };

@@ -10,11 +10,11 @@ const botToken = process.env.botToken;
 const privateUser = process.env.privateUser;
 const groupChat = process.env.groupChat;
 
-let isLifeIssueStr = "";
+let typeOfIssueStr = "";
 let isAnonymousStr = "";
 
 app.post("/api/sendMessage", async (req, res) => {
-  const { userInput, ipAddress, isAnonymous, telegramUser, isLifeIssue } = req.body;
+  const { userInput, ipAddress, isAnonymous, telegramUser, typeOfIssue } = req.body;
 
   if (!userInput) {
     return res.status(400).json({ error: "userInput field is mandatory!" });
@@ -23,9 +23,9 @@ app.post("/api/sendMessage", async (req, res) => {
   let message = "";
 
   try {
-    isLifeIssueStr = isLifeIssue === "account" ? "relato" : isLifeIssue === "problem" ? "problema pessoal" : "inválido";
+    typeOfIssueStr = typeOfIssue === "account" ? "relato" : typeOfIssue === "problem" ? "problema pessoal" : "inválido";
     isAnonymousStr = isAnonymous === "yes" ? "anônimo" + `\n\nIP: [${ipAddress}](https://ip.me/ip/${ipAddress})` : isAnonymous === "no" ? "não anônimo" + `\n\nUsuário que enviou: ${telegramUser}` : "inválido";
-    message = `Novo ${isLifeIssueStr} ${isAnonymousStr}\n\nRelato:\n\`${userInput}\``;
+    message = `Novo ${typeOfIssueStr} ${isAnonymousStr}\n\nRelato:\n\`${userInput}\``;
 
     if (isAnonymous == "yes") {
       await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
