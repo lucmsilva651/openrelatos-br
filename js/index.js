@@ -1,19 +1,18 @@
-import { getElements } from "./elements.js";
-const elements = getElements();
+import * as elements from "./elements.js";
 
-const ipAddress = await (await (await fetch("https://api.ipify.org?format=json")).json()).ip;
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-var telegramUser = urlParams.get('user');
-var isAnonymous = urlParams.get('anon');
-var typeOfIssue = urlParams.get('type');
-let typeOfIssueStr = "";
-let isAnonymousStr = "";
+async function getIp() {
+  try {
+    return await (await (await fetch("https://api.ipify.org?format=json")).json()).ip;
+  } catch (error) {
+    userAlert("Erro ao pegar seu endereço IP!");
+    location.reload();
+  }
+}
 
 function userAlert(error) {
   if (elements.inputStatus) {
     elements.inputStatus.style.display = "block";
-    elements.inputStatus.innerText = error;
+    elements.inputStatus.textContent = error;
   }
   alert(error);
 }
@@ -39,7 +38,15 @@ async function sendInputTG(userInput, ipAddress, isAnonymous, telegramUser, type
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  isAnonymous = isAnonymous && !(isAnonymous === "yes" || isAnonymous === "no") ? "no" : isAnonymous;
+  let typeOfIssueStr = "";
+  let isAnonymousStr = "";
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var telegramUser = urlParams.get('user');
+  var isAnonymous = urlParams.get('anon');
+  var typeOfIssue = urlParams.get('type');
+
+  isAnonymous = isAnonymous && !(isAnonymous === "yes" || isAnonymous === "no") ? "yes" : isAnonymous;
   typeOfIssue = typeOfIssue && !(typeOfIssue === "account" || typeOfIssue === "problem") ? "account" : typeOfIssue;
 
   if (isAnonymous && isAnonymous == "yes") {
@@ -53,18 +60,16 @@ document.addEventListener("DOMContentLoaded", () => {
   typeOfIssueStr = typeOfIssue === "account" ? "Relato" : typeOfIssue === "problem" ? "Problema pessoal" : "Relato";
   isAnonymousStr = isAnonymous === "yes" ? "Sim" : isAnonymous === "no" ? "Não" : "Não";
 
-  console.log(isAnonymous);
-
   if (elements.telegramUser) {
-    elements.telegramUser.innerText = telegramUser;
+    elements.telegramUser.textContent = telegramUser;
   };
 
   if (elements.typeOfIssue) {
-    elements.typeOfIssue.innerText = typeOfIssueStr;
+    elements.typeOfIssue.textContent = typeOfIssueStr;
   }
 
   if (elements.isAnonymous) {
-    elements.isAnonymous.innerText = isAnonymousStr;
+    elements.isAnonymous.textContent = isAnonymousStr;
   };
 })
 
@@ -72,7 +77,7 @@ if (elements.sendInput) {
   elements.sendInput.addEventListener("click", () => {
     if (!elements.userInput.value == "") {
       userAlert(`Você irá enviar o seu relato agora. Clique em OK para continuar.`);
-      sendInputTG(elements.userInput.value, ipAddress, isAnonymous, telegramUser, typeOfIssue)
+      sendInputTG(elements.userInput.value, getIp(), isAnonymous, telegramUser, typeOfIssue)
     } else {
       userAlert("Por favor coloque algum texto!");
     }

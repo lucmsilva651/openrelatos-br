@@ -1,14 +1,10 @@
-export function getElements() {
-  return {
-    inputStatus: document.getElementById("inputStatus"),
-    userInput: document.getElementById("userInput"),
-    sendInput: document.getElementById("sendInput"),
-    telegramUser: document.getElementById("telegramUser"),
-    isAnonymous: document.getElementById("isAnonymous"),
-    isAnonymousChooser: document.getElementById("isAnonymousChooser"),
-    typeOfIssue: document.getElementById("typeOfIssue"),
-    typeOfIssueChooser: document.getElementById("typeOfIssueChooser"),
-    telegramUserInput: document.getElementById("telegramUserInput"),
-    goToNextPage: document.getElementById("goToNextPage"),
-  };
-}
+export const inputStatus = document.getElementById("inputStatus");
+export const userInput = document.getElementById("userInput");
+export const sendInput = document.getElementById("sendInput");
+export const telegramUser = document.getElementById("telegramUser");
+export const telegramUserInput = document.getElementById("telegramUserInput");
+export const isAnonymous = document.getElementById("isAnonymous");
+export const isAnonymousChooser = document.getElementById("isAnonymousChooser");
+export const typeOfIssue = document.getElementById("typeOfIssue");
+export const typeOfIssueChooser = document.getElementById("typeOfIssueChooser");
+export const goToNextPage = document.getElementById("goToNextPage");
