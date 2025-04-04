@@ -1,20 +1,13 @@
 import * as elements from "./elements.js";
+import { userAlert } from "./modal.js";
 
 async function getIp() {
   try {
     return await (await (await fetch("https://api.ipify.org?format=json")).json()).ip;
   } catch (error) {
-    userAlert("Erro ao pegar seu endereço IP!");
+    userAlert("Aviso: Erro ao coletar informações essenciais", `<p>Erro ao pegar seu endereço IP!</p><br><br><p>${error}</p>`);
     location.reload();
   }
-}
-
-function userAlert(error) {
-  if (elements.inputStatus) {
-    elements.inputStatus.style.display = "block";
-    elements.inputStatus.textContent = error;
-  }
-  alert(error);
 }
 
 async function sendInputTG(userInput, ipAddress, isAnonymous, telegramUser, typeOfIssue) {
@@ -28,14 +21,14 @@ async function sendInputTG(userInput, ipAddress, isAnonymous, telegramUser, type
     const result = await response.json();
 
     if (response.ok) {
-      userAlert("Relato/problema enviado com sucesso!");
+      userAlert("Aviso: Envio de relato", `<p>Relato/problema enviado com sucesso!</p>`);
     } else {
-      userAlert(result.error || "Erro desconhecido ao enviar a mensagem.");
-    }
+      userAlert("Aviso: Erro ao enviar relato", `<p>${result.error} || "Erro desconhecido ao enviar a mensagem."</p>`);
+    };
   } catch (error) {
-    userAlert("Erro ao enviar relato/problema, tente novamente!\n\n" + error);
-  }
-}
+    userAlert("Aviso: Erro ao enviar relato", `<p>Erro ao enviar relato/problema, tente novamente!</p><br><br><p>${error}</p>`);
+  };
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   let typeOfIssueStr = "";
@@ -50,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
   typeOfIssue = typeOfIssue && !(typeOfIssue === "account" || typeOfIssue === "problem") ? "account" : typeOfIssue;
 
   if (isAnonymous && isAnonymous == "yes") {
-    userAlert("Informação importante:\nSeu endereço de IP será incluído no seu relato anônimo somente para fins de segurança.")
+    userAlert("Aviso: Envio de relato anônimo", `<p>Informação importante: Seu endereço de IP será incluído no seu relato anônimo somente para fins de segurança.</p>`
+    );
   };
 
   if (telegramUser && !telegramUser.includes("@")) {
@@ -71,25 +65,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if (elements.isAnonymous) {
     elements.isAnonymous.textContent = isAnonymousStr;
   };
-})
+});
 
 if (elements.sendInput) {
   elements.sendInput.addEventListener("click", () => {
     if (!elements.userInput.value == "") {
-      userAlert(`Você irá enviar o seu relato agora. Clique em OK para continuar.`);
-      sendInputTG(elements.userInput.value, getIp(), isAnonymous, telegramUser, typeOfIssue)
+      userAlert("Aviso: Envio de relato", `<p>Você irá enviar o seu relato agora. Clique em OK para continuar.</p>`);
+      sendInputTG(elements.userInput.value, getIp(), isAnonymous, telegramUser, typeOfIssue);
     } else {
-      userAlert("Por favor coloque algum texto!");
-    }
-  })
-}
+      userAlert("Aviso: Falta de informações", `<p>Por favor coloque algum texto!</p>`);
+    };
+  });
+};
 
 if (elements.goToNextPage) {
   elements.goToNextPage.addEventListener("click", () => {
     if (!elements.telegramUserInput.value == "") {
-      window.location.href = `/send?anon=${elements.isAnonymousChooser.value}&type=${elements.typeOfIssueChooser.value}&user=${elements.telegramUserInput.value}`
+      window.location.href = `/send?anon=${elements.isAnonymousChooser.value}&type=${elements.typeOfIssueChooser.value}&user=${elements.telegramUserInput.value}`;
     } else {
-      userAlert("Por favor coloque seu usuário no campo de usuário!");
-    }
-  })
-}
+      userAlert("Aviso: Falta de informações", `<p>Por favor coloque seu usuário no campo de usuário!</p>`);
+    };
+  });
+};

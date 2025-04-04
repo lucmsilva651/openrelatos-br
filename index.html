@@ -3,23 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/modal.css">
   <title>OpenRelatos | 🇧🇷</title>
 </head>
 <body>
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Modal Header</h2>
+  <div id="helpModal" class="modal">
+    <div class="help-modal-content">
+      <div class="help-modal-header">
+        <span class="close" id="modalClose">&times;</span>
+        <h2 id="modalHeader"></h2>
       </div>
-      <div class="modal-body">
-        <p>Some text in the Modal Body</p>
-        <p>Some other text...</p>
+      <div class="help-modal-body">
+        <div id="modalBody"></div>
       </div>
-      <div class="modal-footer">
-        <h3>Modal Footer</h3>
+      <div class="help-modal-footer">
+        <p><b>OpenRelatos - © 2025 Lucas Gabriel (lucmsilva)</b></p>
       </div>
     </div>
   </div>
@@ -31,9 +30,9 @@
     </div>
     <div class="group">
       <b>
-        <p>O projeto OpenRelatos serve para você contar relatos de sua vida ou problemas pelos quais você esteja passando de forma pública, neste canal do Telegram.</p>
+        <p>O projeto OpenRelatos serve para você contar relatos de sua vida ou problemas pelos quais você esteja passando de forma pública, neste canal do Telegram.
+          Sinta-se a vontade para desabafar sobre qualquer coisa, seja de forma anônima ou não. Você pode dizer o que quiser, sem medo.</p>
         <br>
-        <p>Sinta-se a vontade para desabafar sobre qualquer coisa, seja de forma anônima ou não. Você pode dizer o que quiser, sem medo.</p>
         <p>Sua mensagem será enviada no canal do Telegram <a href="https://t.me/OpenRelatos">@OpenRelatos</a> se aplicável.</p>
       </b>
     </div>
@@ -53,14 +52,12 @@
         <option value="no">Não</option>
       </select>
       <br>
-      <label for="telegramUserInput">Seu nome de usuário no Telegram: <span id="myBtn">(?)</span></label>
+      <label for="telegramUserInput">Seu nome de usuário no Telegram:</label>
       <input id="telegramUserInput" required>
-      <br>
-      <br>
-      <button id="goToNextPage">Ir para a próxima página</button>
     </div>
+    <br>
+    <button id="goToNextPage">Ir para a próxima página</button>
     <script type="module" src="js/index.js"></script>
-    <script src="js/modal.js"></script>
   </main>
 </body>
 </html>

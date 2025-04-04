@@ -8,10 +8,19 @@
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #dedede;
 }
 
 body {
   padding: 1.35em 5em;
+  background-color: #24242e;
+}
+
+button, input, select, textarea {
+  border-radius: .4em;
+  border: 1px solid #ffffff;
+  padding: .2em .5em;
+  background-color: #3a3a4b;
 }
 
 textarea {
@@ -31,6 +40,7 @@ textarea {
   font-weight: 400;
   font-style: normal;
   font-size: 1.5em;
+  color: #ffffff;
 }
 
 .logo *, .group * {
